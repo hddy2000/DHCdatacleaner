@@ -1,6 +1,10 @@
 # DHCdatacleaner
 Easy Data Clean Modules from DHC!
-
+安装说明：
+1、请从Terminal进入该文件夹所在的文件路径：比如C:/DHCdatacleaner。
+2、输入命令 python setup.py install。
+3、进入你要编辑的Jupiter notebook或者py文件，import DHCdatacleaner就可以用了。
+4、可以用help()命令看各个模块功能参数介绍。
 
 0.1.0 Version
 0.1.0版本功能
