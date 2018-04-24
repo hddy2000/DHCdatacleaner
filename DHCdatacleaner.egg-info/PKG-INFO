@@ -1,0 +1,24 @@
+Metadata-Version: 1.1
+Name: DHCdatacleaner
+Version: 0.1.0
+Summary: DHC Python tool that automatically cleans data sets and readies them for analysis.
+Home-page: UNKNOWN
+Author: Eddie Huang
+Author-email: huangyi@dhcc.com.cn
+License: UNKNOWN
+Description-Content-Type: UNKNOWN
+Description: 
+        A Python tool that automatically cleans data sets and readies them for analysis.
+        
+Keywords: data cleaning,csv,machine learning,data analysis,data engineering
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Topic :: Utilities
