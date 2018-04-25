@@ -45,21 +45,21 @@ def missing_value_clean(input_dataframe, sel_cols,drop_nans=False, method='mode'
     """Performs a series of automated data cleaning transformations on the provided data set
 
     Parameters
-    ----------
-    input_dataframe: pandas.DataFrame
-        Data set to clean
-    sel_cols:
-        Categorical columns selected
-    drop_nans: bool
-        Drop all rows that have a NaN in any column (default: False)
-    method:string
-        Method used, can be {'mode','bffill'}
-    copy: bool
-        Make a copy of the data set (default: False)
+        ----------
+        input_dataframe: pandas.DataFrame
+            Data set to clean
+        sel_cols:
+            Categorical columns selected
+        drop_nans: bool
+            Drop all rows that have a NaN in any column (default: False)
+        method:string
+            Method used, can be {'mode','bffill'}
+        copy: bool
+            Make a copy of the data set (default: False)
     Returns
-    ----------
-    output_dataframe: pandas.DataFrame
-        Cleaned data set
+        ----------
+        output_dataframe: pandas.DataFrame
+            Cleaned data set
 
     """
     assert method in {'mode','bffill'}
@@ -98,22 +98,22 @@ def word_num_encode(input_dataframe, sel_cols,copy=False, encoder=None,encoder_k
     """Performs a series of automated data cleaning transformations on the provided data set
 
     Parameters
-    ----------
-    input_dataframe: pandas.DataFrame
-        Data set to clean
-    sel_cols: list
-        Categorical columns selected
-    copy: bool
-        Make a copy of the data set (default: False)
-    encoder: category_encoders transformer
-        The a valid category_encoders transformer which is passed an inferred cols list. Default (None: LabelEncoder)
-    encoder_kwargs: category_encoders
-        The a valid sklearn transformer to encode categorical features. Default (None)
+        ----------
+        input_dataframe: pandas.DataFrame
+            Data set to clean
+        sel_cols: list
+            Categorical columns selected
+        copy: bool
+            Make a copy of the data set (default: False)
+        encoder: category_encoders transformer
+            The a valid category_encoders transformer which is passed an inferred cols list. Default (None: LabelEncoder)
+        encoder_kwargs: category_encoders
+            The a valid sklearn transformer to encode categorical features. Default (None)
     
     Returns
-    ----------
-    output_dataframe: pandas.DataFrame
-        Cleaned data set
+        ----------
+        output_dataframe: pandas.DataFrame
+            Cleaned data set
 
     """
     if copy:

@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from __future__ import print_function
 import pandas as pd
 import numpy as np
+import re
 from sklearn.preprocessing import LabelEncoder
 import argparse
 from update_checker import update_check
@@ -132,6 +133,39 @@ def one_hot_derive(input_dataframe,sel_col,seperator=None,copy=False):
         input_dataframe[val]=result
     map(derive_one_hot,vals)
     return input_dataframe,vals
+
+#Text Extraction
+#Get selected information from one col or multiple cols,using regular expression.
+def re_extraction(input_dataframe,sel_cols,new_cols,re_method = r"\d+",copy=False):
+    '''
+    Parameter
+        -----
+        :param input_dataframe: pd.DataFrame
+        :param sel_cols: list,cols to extract from
+        :param new_cols: list,new cols
+        :param re_method: regularization expression
+        :param copy: bool,whether to copy or not
+    Return
+        -----
+        : input_dataframe
+    '''
+    if copy==True:
+        input_dataframe=input_dataframe.copy()
+    assert type(sel_cols)==list and type(new_cols)==list
+    assert len(sel_cols)==len(new_cols)
+    for i in range(len(sel_cols)):
+        col=sel_cols[i]
+        new_col=new_cols[i]
+        # Get index
+        index = input_dataframe[col].isnull().values == False
+        try:
+            # RE extraction
+            val_re = input_dataframe[col][index].map(lambda x: re.findall(re_method,x))
+            input_dataframe[new_col] = val_re
+        except:
+            # Report Exceptions
+            print('Columns Extraction Warning:',col)
+    return input_dataframe
 
 #
 # def main():

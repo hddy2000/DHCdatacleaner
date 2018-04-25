@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from __future__ import print_function
 import pandas as pd
 import numpy as np
+import re
 from sklearn.preprocessing import LabelEncoder
 import argparse
 from update_checker import update_check
@@ -33,25 +34,29 @@ update_checked = False
 #灵活利用function,1对1生成衍生特征列
 def function_derive(input_dataframe,sel_cols,new_cols,function,copy=False):
     '''
-    :param input_dataframe: pd.Dataframe
-    :param sel_col: should be a list
-        input column name
-    :param new_col: should be a list
-        ouput column name
-    :param function: sould be a function
-        ex.def change(x):
-            if x>20 and x<=30:
-                y=1
-            elif x>30:
-                y=2
-            else:
-                y=0
-            return y
-    :param append: bool
-        if True append the derived col to the original dataset, default True
-    :param copy: bool
-        if True make a copy of the dataframe
-    :return: 
+    Parameter
+        -----
+        :param input_dataframe: pd.Dataframe
+        :param sel_col: should be a list
+            input column name
+        :param new_col: should be a list
+            ouput column name
+        :param function: sould be a function
+            ex.def change(x):
+                if x>20 and x<=30:
+                    y=1
+                elif x>30:
+                    y=2
+                else:
+                    y=0
+                return y
+        :param append: bool
+            if True append the derived col to the original dataset, default True
+        :param copy: bool
+            if True make a copy of the dataframe
+    Return
+    -----
+        :input_dataframe:dataframe with new features
     '''
     if copy:
         input_dataframe=input_dataframe.copy()
@@ -68,11 +73,22 @@ def function_derive(input_dataframe,sel_cols,new_cols,function,copy=False):
 def one_hot_derive(input_dataframe,sel_col,seperator=None,copy=False):
     '''
     One Hot transform for categorical col,only one col is supported.
-    :param input_dataframe: 
-    :param sel_col: list,must be one col
-    :param seperator: 
-    :param copy: 
-    :return: 
+    Parameters
+        -----
+        :param input_dataframe: pd.DataFrame
+        :param sel_col: list,
+            must be one col as this is one-hot transfer
+        :param seperator: should be a string or None or whatever separates the features in the content of the data.
+            The seperator Used in the values,
+            ex.
+            if you use',' as seperator,
+         'A,B,C' will be detected as 3 values ['A','B','C']
+        :param copy:bool
+         whether copy the dataset or not
+    Return
+    -----
+    :input_dataframe:dataframe with new features
+    :vals:a list of values detected,names of the derived cols
     '''
     assert len(sel_col)==1
     if copy:
@@ -117,6 +133,39 @@ def one_hot_derive(input_dataframe,sel_col,seperator=None,copy=False):
         input_dataframe[val]=result
     map(derive_one_hot,vals)
     return input_dataframe,vals
+
+#Text Extraction
+#Get selected information from one col or multiple cols,using regular expression.
+def re_extraction(input_dataframe,sel_cols,new_cols,re_method = r"\d+",copy=False):
+    '''
+    Parameter
+        -----
+        :param input_dataframe: pd.DataFrame
+        :param sel_cols: list,cols to extract from
+        :param new_cols: list,new cols
+        :param re_method: regularization expression
+        :param copy: bool,whether to copy or not
+    Return
+        -----
+        : input_dataframe
+    '''
+    if copy==True:
+        input_dataframe=input_dataframe.copy()
+    assert type(sel_cols)==list and type(new_cols)==list
+    assert len(sel_cols)==len(new_cols)
+    for i in range(len(sel_cols)):
+        col=sel_cols[i]
+        new_col=new_cols[i]
+        # Get index
+        index = input_dataframe[col].isnull().values == False
+        try:
+            # RE extraction
+            val_re = input_dataframe[col][index].map(lambda x: re.findall(re_method,x))
+            input_dataframe[new_col] = val_re
+        except:
+            # Report Exceptions
+            print('Columns Extraction Warning:',col)
+    return input_dataframe
 
 #
 # def main():

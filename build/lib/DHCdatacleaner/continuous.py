@@ -41,24 +41,22 @@ import argparse
 # 1、缺失值插补:中位数or众数or前后向补全
 def missing_value_clean(input_dataframe, sel_cols,drop_nans=False,method='median', copy=False):
     """Performs a series of automated data cleaning transformations on the provided data set
-
     Parameters
-    ----------
-    input_dataframe: pandas.DataFrame
-        Data set to clean
-    sel_cols:list
-        Continuous columns selected
-    drop_nans: bool
-        Drop all rows that have a NaN in any column (default: False)
-    method:string
-        method used to fill missing value,could be in {missing,mean,mode,bffill},default median
-    copy: bool
-        Make a copy of the data set (default: False)
+        ----------
+        input_dataframe: pandas.DataFrame
+            Data set to clean
+        sel_cols:list
+            Continuous columns selected
+        drop_nans: bool
+            Drop all rows that have a NaN in any column (default: False)
+        method:string
+            method used to fill missing value,could be in {missing,mean,mode,bffill},default median
+        copy: bool
+            Make a copy of the data set (default: False)
     Returns
-    ----------
-    output_dataframe: pandas.DataFrame
-        Cleaned data set
-
+        ----------
+        input_dataframe: pandas.DataFrame
+            Cleaned data set
     """
     # global update_checked
     # if ignore_update_check:
@@ -68,21 +66,16 @@ def missing_value_clean(input_dataframe, sel_cols,drop_nans=False,method='median
     #     update_check('datacleaner', __version__)
     #     update_checked = True
     assert method in {'median','mean','mode','bffill'}
-
     if copy:
         input_dataframe = input_dataframe.copy()
-
     if drop_nans:
         print('input N:', len(input_dataframe))
         input_dataframe.dropna(inplace=True)
         print('Done!any case with any missing value in the dataset is excluded.Output N:', len(input_dataframe))
         return input_dataframe
-
     # if encoder_kwargs is None:
     #     encoder_kwargs = {}
-
     print('columns to clean:')
-
     for column in sel_cols:
         print (column)
         # Replace NaNs with the median or mode of the column depending on the column type
@@ -121,16 +114,17 @@ def outlier_detect_clean(input_dataframe,sel_cols,maxv=None,minv=None,method=Non
     All the Outliers will be replaced by these numbers
     
     Parameters
-    ---------
-    :param input_dataframe: pd.DataFrame
-    Data to clean outliers
-    :param sel_cols: columns to use, must be continuous
-    :param maxv: max value,can be empty if use 'method'
-    :param minv: min value,can be empty if use 'method'
-    :param method: None,median or mean
-    :param action: to delete or replace the outliers,default replace
-    :param copy: whether to copy the data or not 
-    :return: pd.DataFrame with outliers cleaned with the specific action.
+        ---------
+        :param input_dataframe: pd.DataFrame
+        Data to clean outliers
+        :param sel_cols: columns to use, must be continuous
+        :param maxv: max value,can be empty if use 'method'
+        :param minv: min value,can be empty if use 'method'
+        :param method: None,median or mean
+        :param action: to delete or replace the outliers,default replace
+        :param copy: whether to copy the data or not 
+    Return
+        :input_dataframe: pd.DataFrame with outliers cleaned with the specific action.
     '''
     if copy:
         input_dataframe=input_dataframe.copy()

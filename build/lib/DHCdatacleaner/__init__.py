@@ -43,7 +43,7 @@ To delete the missing cases,or imputate them.
 2、word_num_encode() 
 To Label word into numbers
 离散变量：从文字到数字的encoding
-one_hot_derive() 
+
 
 TRANSFORM:
 1、function_derive() 
@@ -52,10 +52,15 @@ Use a function to create derived cols.
 2、one_hot_transform()
 特征变换：one-hot encoding
 该离散变量中所有的值，内容都为单一词组，或者用逗号等符号分割，可将每个词组都提升为一个单一特征（升维）。
+3、re_extraction()
+Use regularization expression to extract information,the returned col values will be list type
+用正则表达式提取内容，提取出来的内容是返回list
 
 Under Construction 待完成：
 1、离散变量：many cols to one col encoding
 
+请使用help（）看每个模块详解
+For more details please see help() for each module.
 欢迎提出宝贵意见和建议！
 Questions and advices are welcome!
 """
@@ -66,4 +71,4 @@ import categorical
 import continuous
 import transform
 from utils import auto_sel_cols,replace_value
-from transform import function_derive, one_hot_derive
+from transform import function_derive, one_hot_derive,re_extraction

@@ -37,6 +37,16 @@ update_checked = False
 '''
 #自动辨别特征类型
 def auto_sel_cols(input_dataframe):
+    '''
+    Parameter
+        -----
+        :param input_dataframe:pd.DataFrame 
+    
+    Return
+        ------
+        :con_cols:list of col names identified as continuous cols
+        :cat_cols:list of col names identified as categorical cols
+    '''
     con_cols=[]
     cat_cols=[]
     for column in input_dataframe.columns.values:
@@ -57,12 +67,16 @@ def auto_sel_cols(input_dataframe):
 
 def replace_value(input_dataframe,sel_cols,val_list,val_rep,copy=False):
     '''
-    :param input_dataframe: pandas.DataFrame
-    :param sel_cols: list, selected columns need to replace,
-    :param val_list: list,values needs to be replaced,
-    :param val_rep:  list,values used to replace,
-    :param copy:  copy the data or not,
-    :return: input_dataframe
+    Parameter
+        -----
+        :param input_dataframe: pandas.DataFrame
+        :param sel_cols: list, selected columns need to replace,
+        :param val_list: list,values needs to be replaced,
+        :param val_rep:  list,values used to replace,
+        :param copy:  copy the data or not,
+    Return
+        -----
+        :input_dataframe:dataframe with value replaced
     '''
     if copy:
         input_dataframe=input_dataframe.copy()
