@@ -136,7 +136,7 @@ def one_hot_derive(input_dataframe,sel_col,seperator=None,copy=False):
 
 #Text Extraction
 #Get selected information from one col or multiple cols,using regular expression.
-def re_extraction(input_dataframe,sel_cols,new_cols,re_method = r"\d+",copy=False):
+def re_extraction(input_dataframe,sel_cols,new_cols,re_method,copy=False):
     '''
     Parameter
         -----
